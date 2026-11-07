@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand X-Ray | BrandLens AI</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080d18;color:#edf2ff;font-family:Inter,Segoe UI,Arial,sans-serif}
+header{padding:22px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #202b40}
+.logo{font-size:21px;font-weight:800;letter-spacing:1px}
+.logo span{color:#8b7cff}
+.tag{font-size:12px;color:#a9b4ca;border:1px solid #34415b;padding:8px 13px;border-radius:20px}
+main{max-width:1100px;margin:45px auto;padding:0 22px}
+.hero{text-align:center;margin-bottom:32px}
+.hero h1{font-size:clamp(32px,5vw,52px);margin:8px 0}
+.hero h1 span{color:#9b8cff}
+.hero p{color:#9ba9c2;line-height:1.6}
+.panel{background:#111a2b;border:1px solid #26334b;border-radius:18px;padding:24px;margin-bottom:22px}
+label{display:block;font-size:13px;color:#c5cee0;margin-bottom:12px;font-weight:700}
+textarea{width:100%;min-height:150px;background:#091221;color:white;border:1px solid #34435e;border-radius:12px;padding:16px;font:15px/1.6 inherit;resize:vertical;outline:none}
+textarea:focus{border-color:#8b7cff}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:15px}
+button{border:0;border-radius:10px;padding:13px 20px;font-weight:800;cursor:pointer}
+.primary{background:#8977ff;color:white}
+.secondary{background:#202c43;color:#dce5f8}
+button:hover{filter:brightness(1.15)}
+.grid{display:grid;grid-template-columns:260px 1fr;gap:20px}
+.scorebox{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:280px}
+.ring{width:165px;height:165px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#8c7cff 0deg,#8c7cff 280deg,#26344d 280deg);position:relative;margin:15px}
+.ring:before{content:"";position:absolute;inset:10px;background:#111a2b;border-radius:50%}
+.ring strong{z-index:1;font-size:43px}
+.ring small{font-size:12px;color:#9ba9c2}
+.status{font-weight:800;font-size:14px;padding:8px 15px;border-radius:20px;background:#26344d}
+.finding{padding:15px 0;border-bottom:1px solid #29364d}
+.finding:last-child{border:0}
+.finding strong{display:block;margin-bottom:5px}
+.finding p{margin:0;color:#9eacc3;font-size:13px;line-height:1.5}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px}
+.high{background:#ff657c}.medium{background:#ffbd59}.low{background:#50d6a0}
+.verdict{font-size:18px;font-weight:800;margin:8px 0}
+.muted{color:#9ba9c2;font-size:13px;line-height:1.6}
+.hidden{display:none}
+.footer{text-align:center;color:#66758e;font-size:12px;padding:30px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}header{padding:18px}.scorebox{min-height:230px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">BRAND<span>LENS</span> AI</div>
+  <div class="tag">EXPERIMENTAL MODULE · BRAND X-RAY</div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="tag">THE PRE-PUBLISH INTELLIGENCE LAYER</div>
+    <h1>See the risk <span>before the world does.</span></h1>
+    <p>Scan campaign content for risky messaging, misleading promises and brand communication red flags.</p>
+  </section>
+
+  <section class="panel">
+    <label for="content">PASTE YOUR CAMPAIGN CONTENT</label>
+    <textarea id="content" placeholder="Example: Buy now! Guaranteed 100% results in just 2 days. Limited offer — only today!"></textarea>
+    <div class="actions">
+      <button class="primary" onclick="scan()">✦ Scan my campaign</button>
+      <button class="secondary" onclick="sample()">Load risky sample</button>
+      <button class="secondary" onclick="clearAll()">Clear</button>
+    </div>
+    <p class="muted">Preview scanner: transparent rule-based checks. It does not independently verify factual claims.</p>
+  </section>
+
+  <section id="results" class="hidden">
+    <div class="grid">
+      <div class="panel scorebox">
+        <div class="muted">BRAND TRUST SCORE</div>
+        <div class="ring" id="ring"><strong id="score">--</strong></div>
+        <div class="status" id="status">AWAITING SCAN</div>
+        <p class="muted" id="summary">Your campaign report will appear here.</p>
+      </div>
+
+      <div class="panel">
+        <div class="muted">INTELLIGENCE REPORT</div>
+        <h2 style="margin:8px 0 4px">Detected signals</h2>
+        <p class="muted" id="count">No scan performed.</p>
+        <div id="findings"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="muted">FINAL RECOMMENDATION</div>
+      <div class="verdict" id="verdict">Awaiting analysis</div>
+      <p class="muted" id="advice">Run a scan to receive recommendations.</p>
+    </div>
+  </section>
+</main>
+
+<div class="footer">BRANDLENS AI · BRAND X-RAY · RULE-BASED PREVIEW MODULE</div>
+
+<script>
+function sample(){
+ document.getElementById("content").value =
+ "🔥 BUY NOW!!! Guaranteed 100% results in just 2 days. This is the BEST product ever. Limited offer — only today! Everyone is switching to us. Get instant success with zero risk.";
+}
+function clearAll(){
+ document.getElementById("content").value="";
+ document.getElementById("results").classList.add("hidden");
+}
+function scan(){
+ const text=document.getElementById("content").value.trim();
+ if(!text){alert("Please paste campaign content first.");return;}
+
+ const checks=[
+  {name:"Absolute or guaranteed promise",words:["guaranteed","100% results","zero risk","instant success"],level:"high",tip:"Avoid promises that cannot be supported with evidence."},
+  {name:"Artificial urgency",words:["only today","last chance","limited offer","act now","hurry"],level:"medium",tip:"Use urgency only when the deadline or limitation is genuine."},
+  {name:"Exaggerated promotional language",words:["best ever","number one","no. 1","world's best","unmatched"],level:"medium",tip:"Replace exaggerated superlatives with specific, verifiable benefits."},
+  {name:"Aggressive capitalization",words:[],level:"low",tip:"Reduce excessive capital letters and shouting-style messaging."},
+  {name:"Pressure-based call to action",words:["buy now","must buy","don't miss out","everyone is switching"],level:"medium",tip:"Use clear, respectful calls to action instead of pressure."}
+ ];
+
+ const lower=text.toLowerCase();
+ let issues=[];
+ checks.forEach(c=>{
+  let found=c.words.filter(w=>lower.includes(w));
+  if(c.name==="Aggressive capitalization"){
+   let letters=text.replace(/[^A-Za-z]/g,"");
+   let caps=letters.replace(/[^A-Z]/g,"").length;
+   if(letters.length>12 && caps/letters.length>.35)
+    issues.push({...c,detail:"A high proportion of letters are uppercase."});
+  }else if(found.length){
+   issues.push({...c,detail:"Matched phrase(s): "+found.join(", ")});
+  }
+ });
+
+ let deductions=issues.reduce((sum,x)=>sum+(x.level==="high"?25:x.level==="medium"?14:7),0);
+ let score=Math.max(0,100-deductions);
+ let level=score>=80?"LOW RISK":score>=55?"NEEDS REVIEW":"HIGH RISK";
+ let color=score>=80?"#50d6a0":score>=55?"#ffbd59":"#ff657c";
+ document.getElementById("results").classList.remove("hidden");
+ document.getElementById("score").textContent=score;
+ document.getElementById("ring").style.background=
+  `conic-gradient(${color} ${score*3.6}deg,#26344d 0deg)`;
+ document.getElementById("status").textContent=level;
+ document.getElementById("status").style.color=color;
+ document.getElementById("count").textContent=
+  issues.length+" signal(s) detected in this campaign.";
+ document.getElementById("summary").textContent=
+  issues.length? "Review the detected signals before publishing." :
+  "No configured red flags detected. This is not a guarantee of compliance.";
+ 
+ const box=document.getElementById("findings");
+ box.innerHTML="";
+ if(!issues.length){
+  box.innerHTML='<div class="finding"><strong>✓ No configured red flags detected</strong><p>Continue with your normal human review and fact-checking process.</p></div>';
+ }else{
+  issues.forEach(i=>{
+   let div=document.createElement("div");
+   div.className="finding";
+   let dot=document.createElement("span");
+   dot.className="dot "+i.level;
+   let title=document.createElement("strong");
+   title.append(dot,document.createTextNode(i.name));
+   let detail=document.createElement("p");
+   detail.textContent=i.detail+" — "+i.tip;
+   div.append(title,detail);
+   box.append(div);
+  });
+ }
+ document.getElementById("verdict").textContent=
+  score>=80?"READY FOR HUMAN REVIEW":score>=55?"REVISE BEFORE PUBLISHING":"PUBLICATION HOLD RECOMMENDED";
+ document.getElementById("advice").textContent=
+  issues.length?"Address the detected signals, verify factual claims with approved sources, then submit the revised content for human approval.":
+  "No configured red flags were found. Verify claims and approved brand guidelines before human approval.";
+ document.getElementById("results").scrollIntoView({behavior:"smooth"});
+}
+</script>
+</body>
+</html>

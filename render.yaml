@@ -1,0 +1,9 @@
+
+services:
+  - type: web
+    name: brandlens-ai-round2
+    runtime: python
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health

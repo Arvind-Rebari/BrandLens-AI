@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrandLens AI | Brand Governance</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/premium.css">
+</head>
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-logo">B</div>
+            <div>
+                <h2>BrandLens AI</h2>
+                <span>Brand Governance</span>
+            </div>
+        </div>
+
+        <div class="menu-label">WORKSPACE</div>
+
+        <nav>
+            <a href="#dashboard" class="nav-link active" data-page="dashboard">
+                <span>▦</span> Dashboard
+            </a>
+            <a href="#analyzer" class="nav-link" data-page="analyzer">
+                <span>⌕</span> Content Analyzer
+            </a>
+            <a href="#history" class="nav-link" data-page="history">
+                <span>◷</span> Review History
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="status-indicator"></div>
+            <div>
+                <strong>System Operational</strong>
+                <small>BrandLens AI MVP v1.0</small>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">BRAND GOVERNANCE PLATFORM</p>
+                <h1 id="page-title">Dashboard Overview</h1>
+            </div>
+
+            <div class="user-profile">
+                <div class="avatar">LW</div>
+                <div>
+                    <strong>Lonely Wolf</strong>
+                    <small>Team Workspace</small>
+                </div>
+            </div>
+        </header>
+
+        <!-- DASHBOARD -->
+
+        <section id="dashboard-page" class="page active">
+
+            <div class="welcome-section">
+                <div>
+                    <p class="eyebrow">INTELLIGENT CONTENT REVIEW</p>
+                    <h2>Protect your brand identity.</h2>
+                    <p>Review content, detect brand risks and maintain consistent messaging before publication.</p>
+                </div>
+
+                <button class="primary-button" id="new-review-btn">
+                    + New Content Review
+                </button>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <span>Total Reviews</span>
+                    <h2 id="total-reviews">0</h2>
+                    <small>All submitted content</small>
+                </div>
+
+                <div class="stat-card">
+                    <span>Pending Reviews</span>
+                    <h2 id="pending-reviews">0</h2>
+                    <small>Awaiting human review</small>
+                </div>
+
+                <div class="stat-card">
+                    <span>High Risk Content</span>
+                    <h2 id="high-reviews">0</h2>
+                    <small>Requires attention</small>
+                </div>
+
+                <div class="stat-card">
+                    <span>Approved Content</span>
+                    <h2 id="approved-reviews">0</h2>
+                    <small>Human approved reviews</small>
+                </div>
+
+            </div>
+
+            <div class="content-grid">
+
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h3>Recent Reviews</h3>
+                            <p>Latest content analysis activity</p>
+                        </div>
+                        <button class="text-button" data-go="history">View All</button>
+                    </div>
+
+                    <div id="recent-reviews" class="table-wrapper">
+                        <p class="empty-state">No reviews yet. Submit content to get started.</p>
+                    </div>
+                </div>
+
+                <div class="panel quick-panel">
+                    <h3>Quick Actions</h3>
+                    <p>Manage your brand compliance workflow.</p>
+
+                    <button class="quick-action" data-go="analyzer">
+                        <span class="action-icon">⌕</span>
+                        <span>
+                            <strong>Analyze Content</strong>
+                            <small>Check content against brand rules</small>
+                        </span>
+                        <span>→</span>
+                    </button>
+
+                    <button class="quick-action" data-go="history">
+                        <span class="action-icon">◷</span>
+                        <span>
+                            <strong>Review History</strong>
+                            <small>Track previous review decisions</small>
+                        </span>
+                        <span>→</span>
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="panel rule-panel">
+                <h3>Brand Governance Rules</h3>
+                <p>Current categories monitored by the analysis engine.</p>
+
+                <div class="rule-tags">
+                    <span>Unsupported Claims</span>
+                    <span>Risky Wording</span>
+                    <span>Preferred Terminology</span>
+                    <span>Brand Tone</span>
+                    <span>Promotional Claims</span>
+                    <span>Pricing Claims</span>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ANALYZER -->
+
+        <section id="analyzer-page" class="page">
+
+            <div class="section-intro">
+                <h2>Content Analyzer</h2>
+                <p>Submit your marketing content to identify potential brand compliance issues.</p>
+            </div>
+
+            <div class="panel analyzer-panel">
+
+                <div class="panel-heading">
+                    <div>
+                        <h3>Submit Content for Analysis</h3>
+                        <p>Our rule engine will check your content automatically.</p>
+                    </div>
+                    <span class="live-badge">● Analysis Engine Active</span>
+                </div>
+
+                <form id="analysis-form">
+
+                    <label for="content-title">Content Title</label>
+                    <input
+                        type="text"
+                        id="content-title"
+                        placeholder="e.g. Summer Product Campaign"
+                        maxlength="150"
+                        required
+                    >
+
+                    <label for="content-input">Marketing Content</label>
+                    <textarea
+                        id="content-input"
+                        rows="9"
+                        maxlength="15000"
+                        placeholder="Paste your marketing content here..."
+                        required
+                    ></textarea>
+
+                    <div class="input-footer">
+                        <small>Maximum 15,000 characters</small>
+                        <span id="char-count">0 / 15000</span>
+                    </div>
+
+                    <div class="sample-area">
+                        <button type="button" id="sample-btn" class="text-button">
+                            Load Sample Content
+                        </button>
+                        <button type="button" id="clear-btn" class="text-button">
+                            Clear
+                        </button>
+                    </div>
+
+                    <button type="submit" id="analyze-btn" class="primary-button full-button">
+                        Analyze Brand Compliance →
+                    </button>
+
+                </form>
+
+            </div>
+
+            <div id="analysis-result" class="result-container hidden">
+
+                <div class="panel result-summary">
+                    <div>
+                        <p class="eyebrow">ANALYSIS COMPLETE</p>
+                        <h2>Compliance Report</h2>
+                        <p id="result-title"></p>
+                    </div>
+
+                    <div class="risk-display">
+                        <strong id="result-score">0</strong>
+                        <span>/ 100</span>
+                        <div id="result-risk" class="risk-badge">Low Risk</div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h3>Detected Findings</h3>
+                            <p id="finding-count">0 issues detected</p>
+                        </div>
+                    </div>
+
+                    <div id="findings-list"></div>
+                </div>
+
+                <div class="panel review-panel">
+                    <h3>Human Review Decision</h3>
+                    <p>Review the findings before deciding whether to approve this content.</p>
+
+                    <label for="review-note">Reviewer Notes</label>
+                    <textarea id="review-note" rows="3" placeholder="Add your feedback or reason..."></textarea>
+
+                    <div class="review-actions">
+                        <button id="request-changes-btn" class="secondary-button">
+                            Request Changes
+                        </button>
+                        <button id="approve-btn" class="success-button">
+                            ✓ Approve Content
+                        </button>
+                    </div>
+
+                    <p id="review-message" class="review-message"></p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- HISTORY -->
+
+        <section id="history-page" class="page">
+
+            <div class="section-intro">
+                <h2>Review History</h2>
+                <p>Track submitted content, risk levels and human review decisions.</p>
+            </div>
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3>All Content Reviews</h3>
+                        <p>Your latest analysis records</p>
+                    </div>
+                    <button class="text-button" id="refresh-history">↻ Refresh</button>
+                </div>
+
+                <div id="history-table" class="table-wrapper">
+                    <p class="empty-state">Loading reviews...</p>
+                </div>
+            </div>
+
+        </section>
+
+        <footer>
+            BrandLens AI © 2026 | Built by Team Lonely Wolf
+        </footer>
+
+    </main>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
